@@ -1,0 +1,22 @@
+{
+  "family": "ecs-deploy-app",
+  "executionRoleArn": "arn:aws:iam::392453725290:role/ecs-deploy-AppTaskExecutionRole-4A81JX6Y0CDU",
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "portMappings": [
+        {
+          "hostPort": 3000,
+          "protocol": "tcp",
+          "containerPort": 3000
+        }
+      ],
+      "image": "392453725290.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-next:latest",
+      "essential": true
+    }
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc"
+}

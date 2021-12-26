@@ -1,6 +1,8 @@
 version: 0.1
 
 env:
+  variables:
+    DOCKER_BUILDKIT: "1"
   exported-variables:
     - AWS_ACCOUNT_ID
     - AWS_DEFAULT_REGION

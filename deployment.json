@@ -1,0 +1,12 @@
+{
+  "applicationName": "AppECS-ecs-deploy-ecs-deploy-app",
+  "deploymentGroupName": "DgpECS-ecs-deploy-ecs-deploy-app",
+  "revision": {
+    "revisionType": "S3",
+    "s3Location": {
+      "bucket": "small-forest-ci",
+      "key": "appspec.yml",
+      "bundleType": "YAML"
+    }
+  }
+}
