@@ -1,5 +1,5 @@
 {
-  "family": "ecs-deploy-app",
+  "family": "small-forest",
   "executionRoleArn": "arn:aws:iam::392453725290:role/ecs-deploy-AppTaskExecutionRole-4A81JX6Y0CDU",
   "containerDefinitions": [
     {
