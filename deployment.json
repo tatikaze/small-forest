@@ -1,6 +1,6 @@
 {
-  "applicationName": "AppECS-ecs-deploy-ecs-deploy-app",
-  "deploymentGroupName": "DgpECS-ecs-deploy-ecs-deploy-app",
+  "applicationName": "small-forest-bluegreen-app",
+  "deploymentGroupName": "small-forest-deploy",
   "revision": {
     "revisionType": "S3",
     "s3Location": {

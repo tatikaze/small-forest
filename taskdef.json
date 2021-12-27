@@ -1,6 +1,6 @@
 {
   "family": "small-forest",
-  "executionRoleArn": "arn:aws:iam::392453725290:role/ecs-deploy-AppTaskExecutionRole-4A81JX6Y0CDU",
+  "executionRoleArn": "arn:aws:iam::392453725290:role/small-forest-task-role",
   "containerDefinitions": [
     {
       "name": "app",
@@ -12,7 +12,15 @@
         }
       ],
       "image": "392453725290.dkr.ecr.ap-northeast-1.amazonaws.com/ecs-next:latest",
-      "essential": true
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "awslogs-smafore",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "awslogs-example"
+        }
+      }
     }
   ],
   "cpu": "256",
