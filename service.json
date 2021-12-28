@@ -4,7 +4,7 @@
   "taskDefinition": "small-forest",
   "loadBalancers": [
     {
-      "targetGroupArn": "arn:aws:elasticloadbalancing:ap-northeast-1:392453725290:targetgroup/small-forest-blue-green/bbf430a20f1c2715",
+      "targetGroupArn": "arn:aws:elasticloadbalancing:ap-northeast-1:392453725290:targetgroup/smafore/e28c1cf280d9d004",
       "containerName": "app",
       "containerPort": 3000
     }
