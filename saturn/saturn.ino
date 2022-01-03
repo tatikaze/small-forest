@@ -3,8 +3,9 @@
 #include <Preferences.h>
 #include "DHTesp.h"
 
-const char HOST[] = "https://smafore.tatikaze.com/api/v1/conditions";
-const int PORT = 443;
+//const char HOST[] = "https://smafore.tatikaze.com/api/v1/conditions";
+const char HOST[] = "http://192.168.11.7/api/v1/conditions";
+const int PORT = 3000;
 
 DHTesp dht;
 Preferences preferences;
@@ -94,8 +95,9 @@ void loop() {
   HTTPClient httpc;
   httpc.begin(HOST, PORT);
   httpc.addHeader("Content-Type", "application/json");
-  httpc.POST(body);
+  int status = httpc.POST(body);
 
   Serial.println(body);
+  Serial.println(status);
   delay(300000);
 }
