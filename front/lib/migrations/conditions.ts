@@ -1,7 +1,8 @@
-const AWS = require("aws-sdk");
-const dynamoDB = new AWS.DynamoDB({ region: "ap-northeast-1" });
+// Import required AWS SDK clients and commands for Node.js
+import { CreateTableCommand, CreateTableInput } from "@aws-sdk/client-dynamodb";
+import { ddbClient } from "~/lib/dynamodb";
 
-const params = {
+const params: CreateTableInput = {
   TableName: "conditions",
   AttributeDefinitions: [
     { AttributeName: "device_name", AttributeType: "S" }, // number
@@ -17,16 +18,12 @@ const params = {
   },
 };
 
-dynamoDB.createTable(params, (err, data) => {
-  if (err) {
-    console.error(
-      "Unable to create table. Error JSON:",
-      JSON.stringify(err, null, 2)
-    );
-  } else {
-    console.log(
-      "Created table. Table description JSON:",
-      JSON.stringify(data, null, 2)
-    );
+export const run = async () => {
+  try {
+    await ddbClient.send(new CreateTableCommand(params));
+  } catch (e) {
+    console.log(e);
   }
-});
+};
+
+run();
