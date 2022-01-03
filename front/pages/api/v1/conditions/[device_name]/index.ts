@@ -7,12 +7,17 @@ const DeviceConditionHandler = async (
 ) => {
   switch (req.method) {
     case "GET":
-      const start_date = req.body.start_date;
-      const end_date = req.body.end_date;
-      const data = await findConditionByNameAndDateRange("raid", {
-        start_date: new Date(start_date),
-        end_date: new Date(end_date),
-      });
+      // FIXME: validate
+      const start_date = req.query.start_date;
+      const end_date = req.query.end_date;
+      const device_name = req.query.device_name;
+      const data = await findConditionByNameAndDateRange(
+        device_name as string,
+        {
+          start_date: new Date(start_date as string),
+          end_date: new Date(end_date as string),
+        }
+      );
       return res.json({ message: "success", data: data });
   }
 };
