@@ -3,8 +3,8 @@
 #include <Preferences.h>
 #include "DHTesp.h"
 
-//const char HOST[] = "https://smafore.tatikaze.com/api/v1/conditions";
-const char HOST[] = "http://192.168.11.7/api/v1/conditions";
+const char HOST[] = "https://smafore.tatikaze.com/api/v1/conditions";
+//const char HOST[] = "http://192.168.11.7:3000/api/v1/conditions";
 const int PORT = 3000;
 
 DHTesp dht;
@@ -92,8 +92,9 @@ void loop() {
   body += values.humidity;
   body += " }";
 
+  WiFiClient wcli;
   HTTPClient httpc;
-  httpc.begin(HOST, PORT);
+  httpc.begin(wcli, HOST);
   httpc.addHeader("Content-Type", "application/json");
   int status = httpc.POST(body);
 
