@@ -37,6 +37,7 @@ export const createCondition = async (
   try {
     return await ddbClient.send(new PutCommand(params));
   } catch (e) {
+    // FIXME: handle
     console.log(e);
     return;
   }
@@ -69,6 +70,7 @@ export const findConditionByNameAndDateRange = async (
     return data.Items as Condition[];
   } catch (e) {
     console.log(e);
+    // FIXME: handle
     return [];
   }
 };
