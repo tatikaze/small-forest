@@ -3,8 +3,8 @@
 #include <Preferences.h>
 #include "DHTesp.h"
 
-const char HOST[] = "https://smafore.tatikaze.com/api/conditions";
-const int PORT = 4000;
+const char HOST[] = "https://smafore.tatikaze.com/api/v1/conditions";
+const int PORT = 443;
 
 DHTesp dht;
 Preferences preferences;
@@ -97,5 +97,5 @@ void loop() {
   httpc.POST(body);
 
   Serial.println(body);
-  delay(10000);
+  delay(300000);
 }
