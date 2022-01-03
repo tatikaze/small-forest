@@ -1,15 +1,10 @@
-import AWS from "aws-sdk";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createCondition } from "~/lib/models/conditions";
 
 const ConditionHandler = (req: NextApiRequest, res: NextApiResponse) => {
-  const documentClient = new AWS.DynamoDB.DocumentClient({
-    region: "ap-northeast-1",
-  });
-
   switch (req.method) {
     case "GET":
-      return;
+      return res.status(400).json({ message: "unknown methods" });
     case "POST":
       const date = new Date();
       createCondition(

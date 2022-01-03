@@ -24,8 +24,8 @@ export const createCondition = async (
   humidity: number
 ) => {
   const condition: Condition = {
-    created_unix: 100000,
-    created_at: scaned_at.toString(),
+    created_unix: scaned_at.getTime(),
+    created_at: scaned_at.toUTCString(),
     device_name: device_name,
     temperature: temperature,
     humidity: humidity,
@@ -34,7 +34,12 @@ export const createCondition = async (
     TableName: table_name,
     Item: condition,
   };
-  return await ddbClient.send(new PutCommand(params));
+  try {
+    return await ddbClient.send(new PutCommand(params));
+  } catch (e) {
+    console.log(e);
+    return;
+  }
 };
 
 type DateRange = {
@@ -49,14 +54,21 @@ export const findConditionByNameAndDateRange = async (
   const params: QueryCommandInput = {
     TableName: table_name,
     ExpressionAttributeValues: {
-      ":s": 10000,
-      ":e": 100000000,
+      ":s": date_range.start_date.getTime(),
+      ":e": date_range.end_date.getTime(),
       ":dn": device_name,
     },
     KeyConditionExpression:
       "device_name = :dn and created_unix between :s and :e",
   };
 
-  const data: QueryCommandOutput = await ddbClient.send(new QueryCommand(params));
-  return data.Items as Condition[];
+  try {
+    const data: QueryCommandOutput = await ddbClient.send(
+      new QueryCommand(params)
+    );
+    return data.Items as Condition[];
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 };
