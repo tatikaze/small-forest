@@ -19,14 +19,13 @@ const Home: NextPage = () => {
       </Head>
 
       <Flex
-        flex={1}
         flexDir="column"
         justifyContent="center"
         alignItems="center"
+        w="full"
         mx={8}
         px={2}
         my={8}
-        maxW="1000px"
       >
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Smafore</a>
@@ -34,9 +33,15 @@ const Home: NextPage = () => {
         <Box mt={8} mb={4}>
           {!loading && now ? <ConditionStat condition={now} /> : null}
         </Box>
-        {!loading && conditions ? (
-          <ConditionGraph conditions={conditions} title={"過去2時間"} />
-        ) : null}
+        <Box
+          minW={{ sm: "500px", md: "700px" }}
+          maxW={{ sm: "500px", md: "1000px" }}
+          h="full"
+        >
+          {!loading && conditions ? (
+            <ConditionGraph conditions={conditions} title={"過去2時間"} />
+          ) : null}
+        </Box>
       </Flex>
     </Flex>
   );
