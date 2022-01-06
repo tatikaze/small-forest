@@ -25,13 +25,10 @@ const DeviceConditionHandler = async (
           end_date: req.query.end_date,
           device_name: req.query.device_name,
         });
-        console.log(is_safe);
       } catch (e) {
         return res.status(400).json({ message: "Bad Request" });
       }
 
-      console.log(new Date(req.query.start_date as string).getTime());
-      console.log(new Date(req.query.start_date as string));
       const start_date = req.query.start_date;
       const end_date = req.query.end_date;
       const device_name = req.query.device_name;

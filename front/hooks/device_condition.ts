@@ -20,8 +20,6 @@ export const useDeviceCondition = (): UseDeviceCondition => {
     start_date,
   ]);
   const end_date_str = useMemo(() => getRequestDateStr(end_date), [end_date]);
-  console.log(start_date);
-  console.log(end_date);
 
   const { data, error } = useAspidaSWR(
     apiClient.v1._deviceName("reid").conditions,
