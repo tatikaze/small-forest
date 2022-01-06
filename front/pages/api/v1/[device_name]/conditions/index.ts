@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
+import { zonedTimeToUtc } from "date-fns-tz";
 
 import {
   findConditionByNameAndDateRange,
@@ -35,8 +36,8 @@ const DeviceConditionHandler = async (
       const conditions = await findConditionByNameAndDateRange(
         device_name as string,
         {
-          start_date: new Date(start_date as string),
-          end_date: new Date(end_date as string),
+          start_date: zonedTimeToUtc(start_date as string, "Asia/Tokyo"),
+          end_date: zonedTimeToUtc(end_date as string, "Asia/Tokyo"),
         }
       );
       const now = await findNowConditionByName(device_name as string);
