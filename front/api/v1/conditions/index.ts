@@ -1,8 +1,4 @@
-type Condition = {
-  id: string;
-  templeture: number;
-  humidity: number;
-};
+import type { Condition } from '~/types'
 
 export type Methods = {
   post: {

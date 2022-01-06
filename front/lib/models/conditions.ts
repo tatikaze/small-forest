@@ -74,3 +74,28 @@ export const findConditionByNameAndDateRange = async (
     return [];
   }
 };
+export const findNowConditionByName = async (
+  device_name: string
+): Promise<Condition | null> => {
+  const params: QueryCommandInput = {
+    TableName: table_name,
+    ExpressionAttributeValues: {
+      ":dn": device_name,
+    },
+    KeyConditionExpression: "device_name = :dn",
+    ScanIndexForward: false,
+    Limit: 1,
+  };
+
+  try {
+    const data: QueryCommandOutput = await ddbClient.send(
+      new QueryCommand(params)
+    );
+    if (data.Items === undefined) return null;
+    return (data.Items[0] as Condition) ?? null;
+  } catch (e) {
+    console.log(e);
+    // FIXME: handle
+    return null;
+  }
+};
