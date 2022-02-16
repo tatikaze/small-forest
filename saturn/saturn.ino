@@ -4,9 +4,8 @@
 #include <WiFiClientSecure.h>
 #include "DHTesp.h"
 
-const char HOST[] = "https://smafore.tatikaze.com/api/v1/conditions";
+const char HOST[] = "https://smafore.hurin.work/api/v1/conditions";
 //const char HOST[] = "http://192.168.11.7:3000/api/v1/conditions";
-const int PORT = 3000;
 const char* AMAZON_CERT = \
   "-----BEGIN CERTIFICATE-----\n" \
 "MIIDQTCCAimgAwIBAgITBmyfz5m/jAo54vB4ikPmljZbyjANBgkqhkiG9w0BAQsF\n" \
