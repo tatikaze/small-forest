@@ -255,7 +255,7 @@
                   "ProjectName": {
                     "Ref": "PipelineBuildSynthCdkBuildProject6BEFA8E6"
                   },
-                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"4d18d9da9e5004b6886ab59253ca561a8306c179a9d5b5f950850d568265abb4\"}]"
+                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"d2e61729d84b94bfb316c37ae8411e9d1fe0e372d7738cf1157f3f9bf407a38e\"}]"
                 },
                 "InputArtifacts": [
                   {
@@ -713,7 +713,7 @@
                     }
                   ]
                 },
-                "\\\":{\\\"ecrRepository\\\":true}}}' > $HOME/.cdk/cdk-docker-creds.json\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"pwd\",\n        \"ls cdk-deploy\",\n        \"mkdir cdk.out\",\n        \"echo ${CODEBUILD_RESOLVED_SOURCE_VERSION}\",\n        \"export TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk-deploy\",\n    \"files\": [\n      \"**/*\"\n    ]\n  }\n}"
+                "\\\":{\\\"ecrRepository\\\":true}}}' > $HOME/.cdk/cdk-docker-creds.json\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"pwd\",\n        \"ls cdk-deploy\",\n        \"echo ${CODEBUILD_RESOLVED_SOURCE_VERSION}\",\n        \"export TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk-deploy/cdk.out\",\n    \"files\": [\n      \"**/*\"\n    ]\n  }\n}"
               ]
             ]
           },

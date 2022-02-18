@@ -47,11 +47,10 @@ export class MyPipelineStack extends Stack {
         commands: [
           "pwd",
           "ls cdk-deploy",
-          "mkdir cdk.out",
           "echo ${CODEBUILD_RESOLVED_SOURCE_VERSION}",
           "export TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}",
         ],
-        primaryOutputDirectory: "cdk-deploy",
+        primaryOutputDirectory: "cdk-deploy/cdk.out",
       }),
     });
 
