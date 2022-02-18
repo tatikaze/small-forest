@@ -43,12 +43,10 @@ export class MyPipelineStack extends Stack {
               "arn:aws:codestar-connections:ap-northeast-1:392453725290:connection/77e1f86d-9d3f-48d7-85be-052b0f6f5502",
           }
         ),
-        // TODO: pipeline initialize
+        // TODO: generate cdk.out directory files
         commands: [
-          "pwd",
-          "ls cdk-deploy",
+          "npx cdk synth",
           "echo ${CODEBUILD_RESOLVED_SOURCE_VERSION}",
-          "export TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}",
         ],
         primaryOutputDirectory: "cdk-deploy/cdk.out",
       }),
@@ -56,7 +54,7 @@ export class MyPipelineStack extends Stack {
 
     // ECRに新しいタグのイメージを追加
     pipeline.addWave("ECR-image-update", {
-      pre: [
+      post: [
         new CodeBuildStep("buildstep", {
           buildEnvironment: {
             privileged: true,
@@ -74,10 +72,6 @@ export class MyPipelineStack extends Stack {
             "docker build -t $IMAGE_REPO_NAME ./front/",
             "export IMAGE_ID=$(docker images | awk '{print $3}' | awk 'NR==2')",
             "docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION",
-          ],
-        }),
-        new ShellStep("ecr-post", {
-          commands: [
             "echo Build completed on `date`",
             "echo Pushing the Docker image...",
             "docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION",
