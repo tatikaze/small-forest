@@ -11,6 +11,7 @@ import {
   CodeBuildStep,
   DockerCredential,
 } from "aws-cdk-lib/pipelines";
+import * as iam from "aws-cdk-lib/aws-iam";
 
 import { DockerImageBuildStage } from "./cdk-docker-build-stage";
 
@@ -54,10 +55,28 @@ export class MyPipelineStack extends Stack {
       }),
     });
 
+    const imageBuildRole = new iam.Role(
+      this,
+      `ecr-imageDeployRole-${this.stackName}`,
+      {
+        roleName: `ecr-imageDeployRole-${this.stackName}`,
+        assumedBy: new iam.ServicePrincipal("codebuild.amazonaws.com"),
+      }
+    );
+
+    imageBuildRole.addToPolicy(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        resources: ["*"],
+        actions: ["ecr:*"],
+      })
+    );
+
     // ECRに新しいタグのイメージを追加
     pipeline.addWave("ECRImageUpdate", {
       post: [
         new CodeBuildStep("buildstep", {
+          role: imageBuildRole,
           buildEnvironment: {
             privileged: true,
           },

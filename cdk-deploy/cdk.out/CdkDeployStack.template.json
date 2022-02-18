@@ -821,142 +821,6 @@
         "aws:cdk:path": "CdkDeployStack/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
-    "PipelineECRImageUpdatebuildstepRoleF92FA70F": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "codebuild.amazonaws.com"
-              }
-            }
-          ],
-          "Version": "2012-10-17"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/Resource"
-      }
-    },
-    "PipelineECRImageUpdatebuildstepRoleDefaultPolicyE99A65F8": {
-      "Type": "AWS::IAM::Policy",
-      "Properties": {
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents"
-              ],
-              "Effect": "Allow",
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":logs:ap-northeast-1:392453725290:log-group:/aws/codebuild/",
-                      {
-                        "Ref": "PipelineECRImageUpdatebuildstep224B062B"
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":logs:ap-northeast-1:392453725290:log-group:/aws/codebuild/",
-                      {
-                        "Ref": "PipelineECRImageUpdatebuildstep224B062B"
-                      },
-                      ":*"
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Action": [
-                "codebuild:CreateReportGroup",
-                "codebuild:CreateReport",
-                "codebuild:UpdateReport",
-                "codebuild:BatchPutTestCases",
-                "codebuild:BatchPutCodeCoverages"
-              ],
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:",
-                    {
-                      "Ref": "AWS::Partition"
-                    },
-                    ":codebuild:ap-northeast-1:392453725290:report-group/",
-                    {
-                      "Ref": "PipelineECRImageUpdatebuildstep224B062B"
-                    },
-                    "-*"
-                  ]
-                ]
-              }
-            },
-            {
-              "Action": [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*"
-              ],
-              "Effect": "Allow",
-              "Resource": [
-                {
-                  "Fn::GetAtt": [
-                    "PipelineArtifactsBucketAEA9A052",
-                    "Arn"
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      {
-                        "Fn::GetAtt": [
-                          "PipelineArtifactsBucketAEA9A052",
-                          "Arn"
-                        ]
-                      },
-                      "/*"
-                    ]
-                  ]
-                }
-              ]
-            }
-          ],
-          "Version": "2012-10-17"
-        },
-        "PolicyName": "PipelineECRImageUpdatebuildstepRoleDefaultPolicyE99A65F8",
-        "Roles": [
-          {
-            "Ref": "PipelineECRImageUpdatebuildstepRoleF92FA70F"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/DefaultPolicy/Resource"
-      }
-    },
     "PipelineECRImageUpdatebuildstep224B062B": {
       "Type": "AWS::CodeBuild::Project",
       "Properties": {
@@ -984,7 +848,7 @@
         },
         "ServiceRole": {
           "Fn::GetAtt": [
-            "PipelineECRImageUpdatebuildstepRoleF92FA70F",
+            "ecrimageDeployRoleCdkDeployStack43E6E496",
             "Arn"
           ]
         },
@@ -1312,6 +1176,148 @@
       },
       "Metadata": {
         "aws:cdk:path": "CdkDeployStack/Pipeline/UpdatePipeline/SelfMutation/Resource"
+      }
+    },
+    "ecrimageDeployRoleCdkDeployStack43E6E496": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "RoleName": "ecr-imageDeployRole-CdkDeployStack"
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkDeployStack/ecr-imageDeployRole-CdkDeployStack/Resource"
+      }
+    },
+    "ecrimageDeployRoleCdkDeployStackDefaultPolicy25FAC389": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "ecr:*",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:ap-northeast-1:392453725290:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelineECRImageUpdatebuildstep224B062B"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:ap-northeast-1:392453725290:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelineECRImageUpdatebuildstep224B062B"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:ap-northeast-1:392453725290:report-group/",
+                    {
+                      "Ref": "PipelineECRImageUpdatebuildstep224B062B"
+                    },
+                    "-*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "ecrimageDeployRoleCdkDeployStackDefaultPolicy25FAC389",
+        "Roles": [
+          {
+            "Ref": "ecrimageDeployRoleCdkDeployStack43E6E496"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkDeployStack/ecr-imageDeployRole-CdkDeployStack/DefaultPolicy/Resource"
       }
     },
     "CDKMetadata": {

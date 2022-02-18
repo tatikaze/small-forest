@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::392453725290:role/cdk-hnb659fds-deploy-role-392453725290-ap-northeast-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::392453725290:role/cdk-hnb659fds-cfn-exec-role-392453725290-ap-northeast-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-392453725290-ap-northeast-1/7fa20d8937675a029ed532b588835169768a1395deb5b5e96786aa2d8382bc01.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-392453725290-ap-northeast-1/703996e8859058ed798375cc96557376e52311e1ff272743a1e9af0f6ce26d3e.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -123,18 +123,6 @@
             "data": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B"
           }
         ],
-        "/CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PipelineECRImageUpdatebuildstepRoleF92FA70F"
-          }
-        ],
-        "/CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "PipelineECRImageUpdatebuildstepRoleDefaultPolicyE99A65F8"
-          }
-        ],
         "/CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -169,6 +157,18 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "PipelineUpdatePipelineSelfMutationDAA41400"
+          }
+        ],
+        "/CdkDeployStack/ecr-imageDeployRole-CdkDeployStack/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecrimageDeployRoleCdkDeployStack43E6E496"
+          }
+        ],
+        "/CdkDeployStack/ecr-imageDeployRole-CdkDeployStack/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecrimageDeployRoleCdkDeployStackDefaultPolicy25FAC389"
           }
         ],
         "/CdkDeployStack/CDKMetadata/Default": [
