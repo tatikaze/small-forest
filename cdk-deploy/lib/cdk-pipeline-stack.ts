@@ -67,6 +67,7 @@ export class MyPipelineStack extends Stack {
             "echo Building the Docker image...",
             "echo $IMAGE_REPO_NAME",
             "echo $CODEBUILD_RESOLVED_SOURCE_VERSION",
+            "ls",
             "cd front",
             "docker build -t $IMAGE_REPO_NAME .",
             "docker tag $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION",
