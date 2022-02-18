@@ -45,6 +45,8 @@ export class MyPipelineStack extends Stack {
         ),
         // TODO: generate cdk.out directory files
         commands: [
+          "cd cdk-deploy",
+          "yarn --frozen-lockfile",
           "npx cdk synth",
           "echo ${CODEBUILD_RESOLVED_SOURCE_VERSION}",
         ],
@@ -53,7 +55,7 @@ export class MyPipelineStack extends Stack {
     });
 
     // ECRに新しいタグのイメージを追加
-    pipeline.addWave("ECR-image-update", {
+    pipeline.addWave("ECRImageUpdate", {
       post: [
         new CodeBuildStep("buildstep", {
           buildEnvironment: {
