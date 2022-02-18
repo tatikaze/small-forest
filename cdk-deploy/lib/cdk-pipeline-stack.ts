@@ -103,7 +103,7 @@ export class MyPipelineStack extends Stack {
     });
 
     // TODO: ssmでcommitIDをpropsとして渡す
-    //pipeline.addStage(new MyApplication(scope, "Prod", {}));
+    pipeline.addStage(new MyApplication(scope, "Prod", {}));
   }
 }
 
