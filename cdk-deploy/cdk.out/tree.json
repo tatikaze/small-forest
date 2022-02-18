@@ -248,7 +248,7 @@
                                       "Effect": "Allow",
                                       "Resource": {
                                         "Fn::GetAtt": [
-                                          "PipelineECRImageUpdatebuildstepCodePipelineActionRole7DDB602B",
+                                          "PipelineECRImageUpdatebuildstepCodePipelineActionRoleE022E711",
                                           "Arn"
                                         ]
                                       }
@@ -395,7 +395,7 @@
                             ]
                           },
                           {
-                            "name": "ECR-Image-Update",
+                            "name": "ECRImageUpdate",
                             "actions": [
                               {
                                 "name": "buildstep",
@@ -412,13 +412,13 @@
                                 },
                                 "configuration": {
                                   "ProjectName": {
-                                    "Ref": "PipelineECRImageUpdatebuildstep1D5ADC52"
+                                    "Ref": "PipelineECRImageUpdatebuildstep224B062B"
                                   }
                                 },
                                 "runOrder": 1,
                                 "roleArn": {
                                   "Fn::GetAtt": [
-                                    "PipelineECRImageUpdatebuildstepCodePipelineActionRole7DDB602B",
+                                    "PipelineECRImageUpdatebuildstepCodePipelineActionRoleE022E711",
                                     "Arn"
                                   ]
                                 }
@@ -1107,25 +1107,25 @@
                       "version": "10.0.64"
                     }
                   },
-                  "ECR-Image-Update": {
-                    "id": "ECR-Image-Update",
-                    "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update",
+                  "ECRImageUpdate": {
+                    "id": "ECRImageUpdate",
+                    "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate",
                     "children": {
                       "buildstep": {
                         "id": "buildstep",
-                        "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep",
+                        "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep",
                         "children": {
                           "buildstep": {
                             "id": "buildstep",
-                            "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep",
+                            "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep",
                             "children": {
                               "Role": {
                                 "id": "Role",
-                                "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep/Role",
+                                "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role",
                                 "children": {
                                   "Resource": {
                                     "id": "Resource",
-                                    "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep/Role/Resource",
+                                    "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/Resource",
                                     "attributes": {
                                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                                       "aws:cdk:cloudformation:props": {
@@ -1150,11 +1150,11 @@
                                   },
                                   "DefaultPolicy": {
                                     "id": "DefaultPolicy",
-                                    "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep/Role/DefaultPolicy",
+                                    "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/DefaultPolicy",
                                     "children": {
                                       "Resource": {
                                         "id": "Resource",
-                                        "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep/Role/DefaultPolicy/Resource",
+                                        "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/DefaultPolicy/Resource",
                                         "attributes": {
                                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                                           "aws:cdk:cloudformation:props": {
@@ -1178,7 +1178,7 @@
                                                           },
                                                           ":logs:ap-northeast-1:392453725290:log-group:/aws/codebuild/",
                                                           {
-                                                            "Ref": "PipelineECRImageUpdatebuildstep1D5ADC52"
+                                                            "Ref": "PipelineECRImageUpdatebuildstep224B062B"
                                                           }
                                                         ]
                                                       ]
@@ -1193,7 +1193,7 @@
                                                           },
                                                           ":logs:ap-northeast-1:392453725290:log-group:/aws/codebuild/",
                                                           {
-                                                            "Ref": "PipelineECRImageUpdatebuildstep1D5ADC52"
+                                                            "Ref": "PipelineECRImageUpdatebuildstep224B062B"
                                                           },
                                                           ":*"
                                                         ]
@@ -1220,7 +1220,7 @@
                                                         },
                                                         ":codebuild:ap-northeast-1:392453725290:report-group/",
                                                         {
-                                                          "Ref": "PipelineECRImageUpdatebuildstep1D5ADC52"
+                                                          "Ref": "PipelineECRImageUpdatebuildstep224B062B"
                                                         },
                                                         "-*"
                                                       ]
@@ -1260,10 +1260,10 @@
                                               ],
                                               "Version": "2012-10-17"
                                             },
-                                            "policyName": "PipelineECRImageUpdatebuildstepRoleDefaultPolicy47BD89A6",
+                                            "policyName": "PipelineECRImageUpdatebuildstepRoleDefaultPolicyE99A65F8",
                                             "roles": [
                                               {
-                                                "Ref": "PipelineECRImageUpdatebuildstepRole1FDC8488"
+                                                "Ref": "PipelineECRImageUpdatebuildstepRoleF92FA70F"
                                               }
                                             ]
                                           }
@@ -1287,7 +1287,7 @@
                               },
                               "Resource": {
                                 "id": "Resource",
-                                "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep/Resource",
+                                "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
                                   "aws:cdk:cloudformation:props": {
@@ -1315,18 +1315,18 @@
                                     },
                                     "serviceRole": {
                                       "Fn::GetAtt": [
-                                        "PipelineECRImageUpdatebuildstepRole1FDC8488",
+                                        "PipelineECRImageUpdatebuildstepRoleF92FA70F",
                                         "Arn"
                                       ]
                                     },
                                     "source": {
                                       "type": "CODEPIPELINE",
-                                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"build\": {\n      \"commands\": [\n        \"echo Build started on `date`\",\n        \"echo Building the Docker image...\",\n        \"echo $IMAGE_REPO_NAME\",\n        \"echo $CODEBUILD_RESOLVED_SOURCE_VERSION\",\n        \"ls\",\n        \"docker build -t $IMAGE_REPO_NAME ./front/\",\n        \"export IMAGE_ID=$(docker images | awk '{print $3}' | awk 'NR==2')\",\n        \"docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION\",\n        \"echo Build completed on `date`\",\n        \"echo Pushing the Docker image...\",\n        \"docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION\"\n      ]\n    }\n  }\n}"
+                                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"build\": {\n      \"commands\": [\n        \"aws ecr get-login-password | docker login --username AWS --password-stdin https://$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com\",\n        \"echo Build started on `date`\",\n        \"echo Building the Docker image...\",\n        \"echo $IMAGE_REPO_NAME\",\n        \"echo $CODEBUILD_RESOLVED_SOURCE_VERSION\",\n        \"ls\",\n        \"docker build -t $IMAGE_REPO_NAME ./front/\",\n        \"export IMAGE_ID=$(docker images | awk '{print $3}' | awk 'NR==2')\",\n        \"docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION\",\n        \"echo Build completed on `date`\",\n        \"echo Pushing the Docker image...\",\n        \"docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION\"\n      ]\n    }\n  }\n}"
                                     },
                                     "cache": {
                                       "type": "NO_CACHE"
                                     },
-                                    "description": "Pipeline step CdkDeployStack/Pipeline/ECR-Image-Update/buildstep",
+                                    "description": "Pipeline step CdkDeployStack/Pipeline/ECRImageUpdate/buildstep",
                                     "encryptionKey": "alias/aws/s3"
                                   }
                                 },
@@ -1343,11 +1343,11 @@
                           },
                           "CodePipelineActionRole": {
                             "id": "CodePipelineActionRole",
-                            "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/CodePipelineActionRole",
+                            "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/CodePipelineActionRole",
                             "children": {
                               "Resource": {
                                 "id": "Resource",
-                                "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/CodePipelineActionRole/Resource",
+                                "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/CodePipelineActionRole/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                                   "aws:cdk:cloudformation:props": {
@@ -1383,11 +1383,11 @@
                               },
                               "DefaultPolicy": {
                                 "id": "DefaultPolicy",
-                                "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/CodePipelineActionRole/DefaultPolicy",
+                                "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/CodePipelineActionRole/DefaultPolicy",
                                 "children": {
                                   "Resource": {
                                     "id": "Resource",
-                                    "path": "CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/CodePipelineActionRole/DefaultPolicy/Resource",
+                                    "path": "CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/CodePipelineActionRole/DefaultPolicy/Resource",
                                     "attributes": {
                                       "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                                       "aws:cdk:cloudformation:props": {
@@ -1402,7 +1402,7 @@
                                               "Effect": "Allow",
                                               "Resource": {
                                                 "Fn::GetAtt": [
-                                                  "PipelineECRImageUpdatebuildstep1D5ADC52",
+                                                  "PipelineECRImageUpdatebuildstep224B062B",
                                                   "Arn"
                                                 ]
                                               }
@@ -1410,10 +1410,10 @@
                                           ],
                                           "Version": "2012-10-17"
                                         },
-                                        "policyName": "PipelineECRImageUpdatebuildstepCodePipelineActionRoleDefaultPolicy547181B9",
+                                        "policyName": "PipelineECRImageUpdatebuildstepCodePipelineActionRoleDefaultPolicy486E64C7",
                                         "roles": [
                                           {
-                                            "Ref": "PipelineECRImageUpdatebuildstepCodePipelineActionRole7DDB602B"
+                                            "Ref": "PipelineECRImageUpdatebuildstepCodePipelineActionRoleE022E711"
                                           }
                                         ]
                                       }

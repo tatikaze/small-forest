@@ -66,6 +66,7 @@ export class MyPipelineStack extends Stack {
             IMAGE_REPO_NAME: this.node.tryGetContext("application_image_name"),
           },
           commands: [
+            "aws ecr get-login-password | docker login --username AWS --password-stdin https://$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com",
             "echo Build started on `date`",
             "echo Building the Docker image...",
             "echo $IMAGE_REPO_NAME",

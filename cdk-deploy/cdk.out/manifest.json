@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::392453725290:role/cdk-hnb659fds-deploy-role-392453725290-ap-northeast-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::392453725290:role/cdk-hnb659fds-cfn-exec-role-392453725290-ap-northeast-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-392453725290-ap-northeast-1/0e08bc17e4d81ef7ec44bb6b2dbc20cf3345efaae1ae5723843a580f7331c788.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-392453725290-ap-northeast-1/7fa20d8937675a029ed532b588835169768a1395deb5b5e96786aa2d8382bc01.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -123,34 +123,34 @@
             "data": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B"
           }
         ],
-        "/CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep/Role/Resource": [
+        "/CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineECRImageUpdatebuildstepRole1FDC8488"
+            "data": "PipelineECRImageUpdatebuildstepRoleF92FA70F"
           }
         ],
-        "/CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep/Role/DefaultPolicy/Resource": [
+        "/CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Role/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineECRImageUpdatebuildstepRoleDefaultPolicy47BD89A6"
+            "data": "PipelineECRImageUpdatebuildstepRoleDefaultPolicyE99A65F8"
           }
         ],
-        "/CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/buildstep/Resource": [
+        "/CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/buildstep/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineECRImageUpdatebuildstep1D5ADC52"
+            "data": "PipelineECRImageUpdatebuildstep224B062B"
           }
         ],
-        "/CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/CodePipelineActionRole/Resource": [
+        "/CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/CodePipelineActionRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineECRImageUpdatebuildstepCodePipelineActionRole7DDB602B"
+            "data": "PipelineECRImageUpdatebuildstepCodePipelineActionRoleE022E711"
           }
         ],
-        "/CdkDeployStack/Pipeline/Pipeline/ECR-Image-Update/buildstep/CodePipelineActionRole/DefaultPolicy/Resource": [
+        "/CdkDeployStack/Pipeline/Pipeline/ECRImageUpdate/buildstep/CodePipelineActionRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PipelineECRImageUpdatebuildstepCodePipelineActionRoleDefaultPolicy547181B9"
+            "data": "PipelineECRImageUpdatebuildstepCodePipelineActionRoleDefaultPolicy486E64C7"
           }
         ],
         "/CdkDeployStack/Pipeline/UpdatePipeline/SelfMutation/Role/Resource": [
