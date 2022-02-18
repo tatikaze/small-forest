@@ -58,6 +58,9 @@ export class MyPipelineStack extends Stack {
     pipeline.addWave("ECR-image-update", {
       pre: [
         new CodeBuildStep("buildstep", {
+          buildEnvironment: {
+            privileged: true,
+          },
           env: {
             AWS_ACCOUNT_ID: this.node.tryGetContext("account_id"),
             IMAGE_REPO_NAME: this.node.tryGetContext("application_image_name"),
@@ -68,7 +71,6 @@ export class MyPipelineStack extends Stack {
             "echo $IMAGE_REPO_NAME",
             "echo $CODEBUILD_RESOLVED_SOURCE_VERSION",
             "ls",
-            "aws ecr get-login-password | docker login --username AWS --password-stdin https://$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com",
             "docker build -t $IMAGE_REPO_NAME ./front/",
             "docker tag $IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION",
           ],
