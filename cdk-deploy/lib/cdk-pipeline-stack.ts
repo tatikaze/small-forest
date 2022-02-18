@@ -3,6 +3,7 @@ import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ecr from "aws-cdk-lib/aws-ecr";
 import { HelloEcsStack } from "./cdk-deploy-stack";
 import { App, Stage, Stack, StackProps, StageProps } from "aws-cdk-lib";
+import { Artifact } from "aws-cdk-lib/aws-codepipeline";
 import {
   CodePipeline,
   CodePipelineSource,
@@ -28,6 +29,8 @@ export class MyPipelineStack extends Stack {
       this.node.tryGetContext("application_image_name")
     );
 
+    const sourceArtifact = new Artifact();
+
     const pipeline = new CodePipeline(this, "Pipeline", {
       dockerCredentials: [DockerCredential.ecr([repo])],
       synth: new ShellStep("Synth", {
@@ -36,34 +39,29 @@ export class MyPipelineStack extends Stack {
           "tatikaze/small-forest",
           "master",
           {
-            //connectionArn: process.env.SOURCE_ARN as string,
             connectionArn:
               "arn:aws:codestar-connections:ap-northeast-1:392453725290:connection/77e1f86d-9d3f-48d7-85be-052b0f6f5502",
           }
         ),
-        env: {
-          AWS_ACCOUNT_ID: this.node.tryGetContext("account_id"),
-        },
         // TODO: pipeline initialize
         commands: [
+          "pwd",
+          "ls cdk-deploy",
+          "mkdir cdk.out",
           "echo ${CODEBUILD_RESOLVED_SOURCE_VERSION}",
           "export TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}",
         ],
-        primaryOutputDirectory: "cdk-deploy/cdk.out",
+        primaryOutputDirectory: "cdk-deploy",
       }),
     });
 
     // ECRに新しいタグのイメージを追加
     pipeline.addWave("ECR-image-update", {
       pre: [
-        //new ShellStep("ecr-connect", {
-        //  commands: [
-        //    "echo Logging in to Amazon ECR...",
-        //    "$(aws ecr get-login-password | docker login --username AWS --password-stdin https://$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com)",
-        //    "export TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}",
-        //  ],
-        //}),
         new CodeBuildStep("buildstep", {
+          env: {
+            AWS_ACCOUNT_ID: this.node.tryGetContext("account_id"),
+          },
           commands: [
             "echo Build started on `date`",
             "echo Building the Docker image...",
