@@ -1,5 +1,6 @@
 {
   "family": "small-forest",
+  "taskRoleArn": "arn:aws:iam::392453725290:role/small-forest-task",
   "executionRoleArn": "arn:aws:iam::392453725290:role/small-forest-task-role",
   "containerDefinitions": [
     {
