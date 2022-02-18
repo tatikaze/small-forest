@@ -60,12 +60,16 @@ export class MyPipelineStack extends Stack {
         new CodeBuildStep("buildstep", {
           env: {
             AWS_ACCOUNT_ID: this.node.tryGetContext("account_id"),
+            IMAGE_REPO_NAME: this.node.tryGetContext("application_image_name"),
           },
           commands: [
             "echo Build started on `date`",
             "echo Building the Docker image...",
+            "echo $IMAGE_REPO_NAME",
+            "echo $TAG",
+            "echo $CODEBUILD_RESOLVED_SOURCE_VERSION",
             "docker build -t $IMAGE_REPO_NAME .",
-            "docker tag $IMAGE_REPO_NAME:$TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$TAG",
+            "docker tag $IMAGE_REPO_NAME:$TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION",
           ],
         }),
       ],
