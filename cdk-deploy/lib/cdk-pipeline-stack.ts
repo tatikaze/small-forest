@@ -73,11 +73,9 @@ export class MyPipelineStack extends Stack {
             "ls",
             "docker build -t $IMAGE_REPO_NAME ./front/",
             "export IMAGE_ID=$(docker images | awk '{print $3}' | awk 'NR==2')",
-            "docker tag $(IMAGE_REPO_NAME):latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION",
+            "docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$CODEBUILD_RESOLVED_SOURCE_VERSION",
           ],
         }),
-      ],
-      post: [
         new ShellStep("ecr-post", {
           commands: [
             "echo Build completed on `date`",
