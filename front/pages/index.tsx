@@ -9,7 +9,7 @@ import { ConditionStat } from "~/components/ConditionStat";
 import { Title } from "~/components/Title";
 
 const Home: NextPage = () => {
-  const { now, loading } = useDeviceCondition();
+  const { now, loading, mutate, isValidating } = useDeviceCondition();
   return (
     <Flex flexDir="column" alignItems="center">
       <Head>
@@ -29,7 +29,13 @@ const Home: NextPage = () => {
       >
         <Title />
         <Box mt={8} mb={4}>
-          {!loading && now ? <ConditionStat condition={now} /> : null}
+          {!loading && now ? (
+            <ConditionStat
+              condition={now}
+              mutate={mutate}
+              loading={isValidating}
+            />
+          ) : null}
         </Box>
         <Flex rounded="md" shadow="xs">
           <TwitterTimelineEmbed
