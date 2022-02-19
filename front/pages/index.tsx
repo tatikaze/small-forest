@@ -1,15 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Flex, Box } from "@chakra-ui/react";
+import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 import { useDeviceCondition } from "~/hooks/device_condition";
 
-import { ConditionGraph } from "~/components/ConditionGraph";
 import { ConditionStat } from "~/components/ConditionStat";
 import { Title } from "~/components/Title";
 
 const Home: NextPage = () => {
-  const { conditions, now, loading, error } = useDeviceCondition();
+  const { now, loading } = useDeviceCondition();
   return (
     <Flex flexDir="column" alignItems="center">
       <Head>
@@ -31,15 +31,16 @@ const Home: NextPage = () => {
         <Box mt={8} mb={4}>
           {!loading && now ? <ConditionStat condition={now} /> : null}
         </Box>
-        <Box
-          minW={{ sm: "500px", md: "700px" }}
-          maxW={{ sm: "500px", md: "1000px" }}
-          h="full"
-        >
-          {!loading && conditions ? (
-            <ConditionGraph conditions={conditions} title={"過去2時間"} />
-          ) : null}
-        </Box>
+        <Flex rounded="md" shadow="xs">
+          <TwitterTimelineEmbed
+            onLoad={function noRefCheck() {}}
+            options={{
+              height: 400,
+            }}
+            screenName="Met_Komori"
+            sourceType="profile"
+          />
+        </Flex>
       </Flex>
     </Flex>
   );

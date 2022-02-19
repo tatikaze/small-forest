@@ -2,8 +2,10 @@
   "name": "front",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "run-p dev:*",
+    "dev:next": "next dev",
+    "dev:path": "pathpida --ignorePath .gitignore --watch",
+    "build": "pathpida --ignorePath .gitignore && next build",
     "start": "next start",
     "lint": "next lint",
     "api:build": "aspida"
@@ -27,6 +29,7 @@
     "react-chartjs-2": "^4.0.0",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
+    "react-twitter-embed": "^4.0.4",
     "swr": "^1.1.2",
     "zod": "^3.11.6"
   },
@@ -35,6 +38,8 @@
     "@types/react": "17.0.38",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
+    "npm-run-all": "^4.1.5",
+    "pathpida": "^0.17.0",
     "typescript": "4.5.4"
   }
 }
