@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import { Flex, Box } from "@chakra-ui/react";
 
 import { useDeviceCondition } from "~/hooks/device_condition";
 
 import { ConditionGraph } from "~/components/ConditionGraph";
 import { ConditionStat } from "~/components/ConditionStat";
+import { Title } from "~/components/Title";
 
 const Home: NextPage = () => {
   const { conditions, now, loading, error } = useDeviceCondition();
@@ -27,9 +27,7 @@ const Home: NextPage = () => {
         px={2}
         my={8}
       >
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Smafore</a>
-        </h1>
+        <Title />
         <Box mt={8} mb={4}>
           {!loading && now ? <ConditionStat condition={now} /> : null}
         </Box>

@@ -1,4 +1,6 @@
 import type React from "react";
+import { Flex, Text, Icon } from "@chakra-ui/react";
+import { FaGhost } from "react-icons/fa";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -73,6 +75,19 @@ export const ConditionGraph: React.FC<Props> = (props: Props) => {
       },
     ],
   };
+
+  if (props.conditions === undefined || props.conditions.length === 0) {
+    return (
+      <Flex flexDir="column" alignItems="center" >
+        <Flex flexDir="row" alignItems="center" p={8}>
+          <Icon h={6} w={6} as={FaGhost} mx={2} />
+          <Text textColor="gray.700" textAlign="center">
+            直近のデータが存在しません
+          </Text>
+        </Flex>
+      </Flex>
+    );
+  }
 
   return <Line options={options} data={data} />;
 };
