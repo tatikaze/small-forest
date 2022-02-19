@@ -1,4 +1,5 @@
 import * as cdk from "aws-cdk-lib";
+import { Construct } from "constructs";
 
 import * as r53 from "aws-cdk-lib/aws-route53";
 import * as elb from "aws-cdk-lib/aws-elasticloadbalancingv2";
@@ -9,7 +10,7 @@ import * as ecr from "aws-cdk-lib/aws-ecr";
 import * as ecsp from "aws-cdk-lib/aws-ecs-patterns";
 
 export class HelloEcsStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const domainZone = r53.HostedZone.fromHostedZoneAttributes(this, "Zone", {

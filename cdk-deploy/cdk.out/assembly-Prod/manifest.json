@@ -1,0 +1,323 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "ProdappstackE46C3EEB.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ProdappstackE46C3EEB.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ProdappstackE46C3EEB": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "ProdappstackE46C3EEB.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/213546261d1d25864c66da64c1094645d67b077e6261740da0683b1f9edcfa8f.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ProdappstackE46C3EEB.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "Prod-app-stack"
+      },
+      "dependencies": [
+        "ProdappstackE46C3EEB.assets"
+      ],
+      "metadata": {
+        "/Prod/app-stack/Certificate/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Certificate4E7ABB08"
+          }
+        ],
+        "/Prod/app-stack/ecs-taskRole-Prod-app-stack/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecstaskRoleProdappstackF1D2C595"
+          }
+        ],
+        "/Prod/app-stack/ecs-taskRole-Prod-app-stack/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ecstaskRoleProdappstackDefaultPolicy9620CAB2"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerLB3B5FD3AB"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/LB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerLBSecurityGroup01B285AA"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/LB/SecurityGroup/to ProdappstackMyWebServerServiceSecurityGroup198E8B2A:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerLBSecurityGrouptoProdappstackMyWebServerServiceSecurityGroup198E8B2A80BA986B76"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerLBPublicListener03D7C493"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerLBPublicListenerECSGroup5AB9F1C3"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/LB/PublicRedirectListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerLBPublicRedirectListenerEE8B5272"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/DNS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerDNS81A386C3"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerLoadBalancerDNSD1AFCC81"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerServiceURLB0ED50F6"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerTaskDef4CE825A0"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/TaskDef/web/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerTaskDefwebLogGroupC6EE23D4"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/TaskDef/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerTaskDefExecutionRole3C69E361"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerTaskDefExecutionRoleDefaultPolicy2AEB4329"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerService2FE7341D"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerServiceSecurityGroup6788214A"
+          }
+        ],
+        "/Prod/app-stack/MyWebServer/Service/SecurityGroup/from ProdappstackMyWebServerLBSecurityGroup902875AC:80": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyWebServerServiceSecurityGroupfromProdappstackMyWebServerLBSecurityGroup902875AC803CBD2551"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYN926A5246"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpc7788A521"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1Subnet3C273B99"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1RouteTableA1FD6ACC"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1RouteTableAssociation8B583A17"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1DefaultRouteFF4E2178"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1EIP8704DB2F"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1NATGateway5E3732C1"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2Subnet95FF715A"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2RouteTable263DEAA5"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2RouteTableAssociation43E5803C"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2DefaultRouteB1375520"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2EIPF0764873"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2NATGateway4C855E00"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1Subnet075EFF4C"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1RouteTable4F1D2E36"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1RouteTableAssociation34B92275"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1DefaultRouteA5ADF694"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2SubnetE4CEDF73"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2RouteTableDCE46591"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2RouteTableAssociation111C622F"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2DefaultRoute20CE2D89"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcIGW9C2C2B8F"
+          }
+        ],
+        "/Prod/app-stack/EcsDefaultClusterMnL3mNNYN/Vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcsDefaultClusterMnL3mNNYNVpcVPCGW2447264E"
+          }
+        ],
+        "/Prod/app-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/Prod/app-stack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/Prod/app-stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Prod/app-stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Prod/app-stack"
+    }
+  }
+}

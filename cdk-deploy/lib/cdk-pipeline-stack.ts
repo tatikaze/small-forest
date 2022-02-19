@@ -2,7 +2,14 @@ import { Construct } from "constructs";
 import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ecr from "aws-cdk-lib/aws-ecr";
 import { HelloEcsStack } from "./cdk-deploy-stack";
-import { App, Stage, Stack, StackProps, StageProps } from "aws-cdk-lib";
+import {
+  App,
+  Stage,
+  Stack,
+  StackProps,
+  StageProps,
+  CfnOutput,
+} from "aws-cdk-lib";
 import { Artifact } from "aws-cdk-lib/aws-codepipeline";
 import {
   CodePipeline,
@@ -103,7 +110,7 @@ export class MyPipelineStack extends Stack {
     });
 
     // TODO: ssmでcommitIDをpropsとして渡す
-    pipeline.addStage(new MyApplication(scope, "Prod", {}));
+    pipeline.addStage(new MyApplication(scope, "Prod"));
   }
 }
 
@@ -112,9 +119,9 @@ export class MyPipelineStack extends Stack {
  * `MyApplication`は1つ以上のStackで構成されます。
  */
 class MyApplication extends Stage {
-  constructor(scope: App, id: string, props?: StageProps) {
+  constructor(scope: Construct, id: string, props?: StageProps) {
     super(scope, id, props);
 
-    new HelloEcsStack(scope, "app-stack");
+    new HelloEcsStack(this, "app-stack");
   }
 }
