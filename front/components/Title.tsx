@@ -13,28 +13,31 @@ export const Title: React.FC = () => {
         }}
         onHoverEnd={() => setHover.off()}
       >
-        <Flex flexDir="row" alignItems="center">
+        <Flex flexDir="row" alignItems="center" justifyContent="center" px={4}>
           <motion.div
             transition={{ duration: 1 }}
             animate={{ rotate: hover ? [0, 20, -18, 0] : 0 }}
             key={hover ? "move" : null}
+            style={{ display: "flex", alignItems: "center" }}
           >
             <Icon as={BsMoonStars} mx={4} />
           </motion.div>
-          <motion.div
-            onHoverStart={() => {
-              setHover.on();
-            }}
-            onHoverEnd={() => setHover.off()}
-          >
-            Welcome to{" "}
-            <chakra.a
-              textColor="#FF751D"
-              href="https://www.youtube.com/channel/UCzUNASdzI4PV5SlqtYwAkKQ"
+          <Flex px={2}>
+            <motion.div
+              onHoverStart={() => {
+                setHover.on();
+              }}
+              onHoverEnd={() => setHover.off()}
             >
-              Smafore
-            </chakra.a>
-          </motion.div>
+              Welcome to{" "}
+              <chakra.a
+                textColor="#FF751D"
+                href="https://www.youtube.com/channel/UCzUNASdzI4PV5SlqtYwAkKQ"
+              >
+                Smafore
+              </chakra.a>
+            </motion.div>
+          </Flex>
         </Flex>
       </motion.div>
     </chakra.h1>
