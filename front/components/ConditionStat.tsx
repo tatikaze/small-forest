@@ -31,7 +31,9 @@ export const ConditionStat: React.FC<Props> = (props: Props) => {
     >
       <Flex flexDir="row" alignItems="center" mb={2} textColor="gray.500">
         {props.loading ? (
-          <Skeleton w={40} h="1.4rem" />
+          <Skeleton>
+            <Text fontSize="sm">yyyy/MM/dd HH:mm:ss</Text>
+          </Skeleton>
         ) : (
           <Text fontSize="sm" textAlign="left">
             {props.condition
@@ -71,7 +73,11 @@ export const ConditionStat: React.FC<Props> = (props: Props) => {
             温度
           </Flex>
           {props.loading ? (
-            <Skeleton w={20} h="2.4rem" />
+            <Skeleton>
+              <Text fontSize="2xl" ml={4}>
+                00.0℃
+              </Text>
+            </Skeleton>
           ) : (
             <Text fontSize="2xl" ml={4}>
               {props.condition ? props.condition.temperature : null}℃
@@ -84,7 +90,11 @@ export const ConditionStat: React.FC<Props> = (props: Props) => {
             湿度
           </Flex>
           {props.loading ? (
-            <Skeleton w={20} h="2.4rem" />
+            <Skeleton>
+              <Text fontSize="2xl" ml={4}>
+                00.0%
+              </Text>
+            </Skeleton>
           ) : (
             <Text fontSize="2xl" ml={4}>
               {props.condition ? props.condition.humidity : null}%
