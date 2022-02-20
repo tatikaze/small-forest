@@ -3,7 +3,7 @@ import useAspidaSWR from "@aspida/swr";
 import { apiClient } from "~/lib/apiClient";
 
 import type { Condition } from "~/types";
-import { getRequestDateStr, getUTCDate } from "~/lib/format";
+import { getRequestDateStr } from "~/lib/format";
 
 type UseDeviceCondition = {
   conditions: Condition[] | undefined;
@@ -11,7 +11,7 @@ type UseDeviceCondition = {
   loading: boolean;
   error: any;
   mutate: () => void;
-  isValidating: boolean;
+  revalidating: boolean;
 };
 
 export const useDeviceCondition = (): UseDeviceCondition => {
@@ -30,12 +30,16 @@ export const useDeviceCondition = (): UseDeviceCondition => {
     }
   );
 
+  const revalidating: boolean = useMemo(() => {
+    return !(!data && !error) && isValidating;
+  }, [data, isValidating]);
+
   return {
     conditions: data?.conditions ?? undefined,
     now: data?.now ?? undefined,
     loading: !data && !error,
     error,
     mutate,
-    isValidating,
+    revalidating,
   };
 };
