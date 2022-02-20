@@ -9,17 +9,31 @@ import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ecr from "aws-cdk-lib/aws-ecr";
 import * as ecsp from "aws-cdk-lib/aws-ecs-patterns";
 
+/*
+ * `Stage`をextendsして`MyApplication`を定義します。
+ * `MyApplication`は1つ以上のStackで構成されます。
+ */
+export class Application extends cdk.Stage {
+  constructor(scope: Construct, id: string, props?: cdk.StageProps) {
+    super(scope, id, props);
+
+    new HelloEcsStack(this, "app-stack");
+  }
+}
+
 export class HelloEcsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const domainZone = r53.HostedZone.fromHostedZoneAttributes(this, "Zone", {
-      zoneName: "hurin.work",
-      hostedZoneId: "Z02031981E6UW39GQVSB3",
+      zoneName: this.node.tryGetContext("zone_name"),
+      hostedZoneId: this.node.tryGetContext("hosted_zone_id"),
     });
 
+    const domainName = this.node.tryGetContext("domain_name");
+
     const certificate = new acm.Certificate(this, "Certificate", {
-      domainName: "smafore.hurin.work",
+      domainName: domainName,
       validation: acm.CertificateValidation.fromDns(domainZone),
     });
 
@@ -51,7 +65,7 @@ export class HelloEcsStack extends cdk.Stack {
       },
       certificate,
       sslPolicy: elb.SslPolicy.RECOMMENDED,
-      domainName: "smafore.hurin.work",
+      domainName: domainName,
       domainZone,
       redirectHTTP: true,
       publicLoadBalancer: true,
