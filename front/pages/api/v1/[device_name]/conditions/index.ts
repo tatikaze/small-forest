@@ -33,15 +33,21 @@ const DeviceConditionHandler = async (
       const start_date = req.query.start_date;
       const end_date = req.query.end_date;
       const device_name = req.query.device_name;
-      const conditions = await findConditionByNameAndDateRange(
-        device_name as string,
-        {
-          start_date: zonedTimeToUtc(start_date as string, "Asia/Tokyo"),
-          end_date: zonedTimeToUtc(end_date as string, "Asia/Tokyo"),
-        }
-      );
-      const now = await findNowConditionByName(device_name as string);
-      return res.json({ conditions: conditions, now: now });
+
+      try {
+        const conditions = await findConditionByNameAndDateRange(
+          device_name as string,
+          {
+            start_date: zonedTimeToUtc(start_date as string, "Asia/Tokyo"),
+            end_date: zonedTimeToUtc(end_date as string, "Asia/Tokyo"),
+          }
+        );
+        const now = await findNowConditionByName(device_name as string);
+        return res.json({ conditions: conditions, now: now });
+      } catch (e) {
+        console.log(e);
+        return res.status(400).json({ message: "Unknown Error" });
+      }
   }
 };
 
