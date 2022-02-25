@@ -69,9 +69,7 @@ export const findConditionByNameAndDateRange = async (
     );
     return data.Items as Condition[];
   } catch (e) {
-    console.log(e);
-    // FIXME: handle
-    return [];
+    throw e;
   }
 };
 export const findNowConditionByName = async (
