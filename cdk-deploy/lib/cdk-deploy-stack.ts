@@ -2,6 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 
 import * as r53 from "aws-cdk-lib/aws-route53";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as elb from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as iam from "aws-cdk-lib/aws-iam";
@@ -49,6 +50,37 @@ export class HelloEcsStack extends cdk.Stack {
         actions: ["dynamodb:*"],
       })
     );
+
+    const vpc = new ec2.Vpc(this, "small-forest-vpc", {
+      natGateways: 0,
+      subnetConfiguration: [
+        {
+          name: "public",
+          subnetType: ec2.SubnetType.PUBLIC,
+        },
+        {
+          name: "isolated",
+          subnetType: ec2.SubnetType.ISOLATED,
+        },
+      ],
+    });
+
+    vpc.addGatewayEndpoint("s3-endpoint", {
+      service: ec2.GatewayVpcEndpointAwsService.S3,
+      subnets: [
+        {
+          subnets: vpc.isolatedSubnets,
+        },
+      ],
+    });
+
+    vpc.addInterfaceEndpoint("cloudwatch-endpoint", {
+      service: ec2.InterfaceVpcEndpointAwsService.CLOUDWATCH_LOGS,
+    });
+
+    vpc.addInterfaceEndpoint("ecr-endpoint", {
+      service: ec2.InterfaceVpcEndpointAwsService.ECR_DOCKER,
+    });
 
     new ecsp.ApplicationLoadBalancedFargateService(this, "MyWebServer", {
       taskImageOptions: {
