@@ -112,6 +112,8 @@ export class HelloEcsStack extends cdk.Stack {
       redirectHTTP: true,
       publicLoadBalancer: true,
       listenerPort: 443,
+      vpc,
+      taskSubnets: { subnets: vpc.isolatedSubnets },
     });
   }
 }
