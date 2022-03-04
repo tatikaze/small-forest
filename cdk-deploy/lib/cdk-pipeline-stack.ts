@@ -24,9 +24,7 @@ export class MyPipelineStack extends Stack {
       this.node.tryGetContext("application_image_name")
     );
 
-    const token = Secret.fromSecretAttributes(this, "AccessToken", {
-      secretCompleteArn: this.node.tryGetContext("dockerhub_arn"),
-    });
+    const token = Secret.fromSecretNameV2(this, "dockerHubSecret", "dockerhub");
 
     const pipeline = new CodePipeline(this, "Pipeline", {
       dockerCredentials: [
