@@ -25,8 +25,7 @@ export class MyPipelineStack extends Stack {
     );
 
     const token = Secret.fromSecretAttributes(this, "AccessToken", {
-      secretCompleteArn:
-        "arn:aws:secretsmanager:ap-northeast-1:392453725290:secret:dockerhub-qN42c0",
+      secretCompleteArn: this.node.tryGetContext("dockerhub_arn"),
     });
 
     const pipeline = new CodePipeline(this, "Pipeline", {
