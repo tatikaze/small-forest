@@ -80,6 +80,16 @@ export class HelloEcsStack extends cdk.Stack {
 
     vpc.addInterfaceEndpoint("ecr-endpoint", {
       service: ec2.InterfaceVpcEndpointAwsService.ECR_DOCKER,
+      subnets: {
+        subnets: vpc.isolatedSubnets,
+      },
+    });
+
+    vpc.addInterfaceEndpoint("ecr", {
+      service: ec2.InterfaceVpcEndpointAwsService.ECR,
+      subnets: {
+        subnets: vpc.isolatedSubnets,
+      },
     });
 
     new ecsp.ApplicationLoadBalancedFargateService(this, "MyWebServer", {
