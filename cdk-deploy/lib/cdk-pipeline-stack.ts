@@ -9,6 +9,7 @@ import {
   DockerCredential,
 } from "aws-cdk-lib/pipelines";
 import * as iam from "aws-cdk-lib/aws-iam";
+import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 
 /**
  * パイプラインを定義するStack
@@ -23,8 +24,16 @@ export class MyPipelineStack extends Stack {
       this.node.tryGetContext("application_image_name")
     );
 
+    const token = Secret.fromSecretAttributes(this, "AccessToken", {
+      secretCompleteArn:
+        "arn:aws:secretsmanager:ap-northeast-1:392453725290:secret:dockerhub-qN42c0",
+    });
+
     const pipeline = new CodePipeline(this, "Pipeline", {
-      dockerCredentials: [DockerCredential.ecr([repo])],
+      dockerCredentials: [
+        DockerCredential.ecr([repo]),
+        DockerCredential.dockerHub(token),
+      ],
       synth: new ShellStep("Synth", {
         input: CodePipelineSource.connection(
           this.node.tryGetContext("github_repo"),
