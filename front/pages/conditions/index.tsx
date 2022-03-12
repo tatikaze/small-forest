@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { Box, Flex } from "@chakra-ui/react";
 
 import { useDeviceCondition } from "~/hooks/device_condition";
@@ -9,6 +10,9 @@ const ConditionDetailPage: React.FC = () => {
   const { conditions, loading, error } = useDeviceCondition();
   return (
     <Flex flexDir="column" alignItems="center">
+      <Head>
+        <title>ConditionHistory</title>
+      </Head>
       <Flex
         flexDir="column"
         justifyContent="center"
@@ -23,7 +27,7 @@ const ConditionDetailPage: React.FC = () => {
           minW={{ sm: "500px", md: "700px" }}
           maxW={{ sm: "500px", md: "1000px" }}
           h="full"
-	  my={8}
+          my={8}
         >
           {!loading && conditions ? (
             <ConditionGraph conditions={conditions} title={"過去2時間"} />
