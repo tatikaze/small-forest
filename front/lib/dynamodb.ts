@@ -17,7 +17,13 @@ const unmarshallOptions = {
 
 const translateConfig = { marshallOptions, unmarshallOptions };
 
-export const ddbClient = new DynamoDBClient({ region: "ap-northeast-1" });
+export const ddbClient = new DynamoDBClient({
+  region: "ap-northeast-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_APP_KEY as string,
+    secretAccessKey: process.env.AWS_SECRET_APP_KEY as string,
+  },
+});
 export const ddbDocClient = DynamoDBDocumentClient.from(
   ddbClient,
   translateConfig
