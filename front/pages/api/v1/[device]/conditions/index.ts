@@ -24,7 +24,7 @@ const DeviceConditionHandler = async (
         const is_safe = validator.parse({
           start_date: req.query.start_date,
           end_date: req.query.end_date,
-          device_name: req.query.device_name,
+          device_name: req.query.device,
         });
       } catch (e) {
         return res.status(400).json({ message: "Bad Request" });
@@ -32,7 +32,7 @@ const DeviceConditionHandler = async (
 
       const start_date = req.query.start_date;
       const end_date = req.query.end_date;
-      const device_name = req.query.device_name;
+      const device_name = req.query.device;
 
       try {
         const conditions = await findConditionByNameAndDateRange(
