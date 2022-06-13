@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/v1/:device_name/conditions", "destination": "/api/v1/device/conditions" }
+    { "source": "/api/v1/:device/conditions", "destination": "/api/v1/device/conditions" }
   ]
 }
