@@ -26,7 +26,11 @@ export const useDeviceCondition = (): UseDeviceCondition => {
   const { data, error, mutate, isValidating } = useAspidaSWR(
     apiClient.v1._device("reid"),
     {
-      query: { start_date: start_date_str, end_date: end_date_str },
+      query: {
+        start_date: start_date_str,
+        end_date: end_date_str,
+        device: "raid",
+      },
     }
   );
 
