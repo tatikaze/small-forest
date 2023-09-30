@@ -27,7 +27,9 @@ export const ConditionStat: React.FC<Props> = (props: Props) => {
       border={1}
       borderStyle="solid"
       borderColor={"gray.200"}
-      rounded="md"
+      rounded="lg"
+      w="full"
+      gap={2}
     >
       <Flex flexDir="row" alignItems="center" mb={2} textColor="gray.500">
         {props.loading ? (
@@ -66,7 +68,7 @@ export const ConditionStat: React.FC<Props> = (props: Props) => {
           </motion.div>
         </Flex>
       </Flex>
-      <Flex flexDir="row" mr={2}>
+      <Flex flexDir="row" mr={2} justifyContent="space-evenly">
         <Flex mx={2} flexDir="column" alignItems="flex-start">
           <Flex alignItems="center" mx={2}>
             <Icon as={FaTemperatureHigh} mx={1} />
@@ -108,8 +110,6 @@ export const ConditionStat: React.FC<Props> = (props: Props) => {
           justifyContent="flex-end"
           alignItems="center"
           px={2}
-          py={1}
-          mt={1}
           _hover={{ textDecoration: "underline" }}
         >
           <Text textAlign="right" userSelect="none">
