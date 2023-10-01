@@ -42,41 +42,34 @@ const char* AMAZON_CERT = \
 DHTesp dht;
 Preferences preferences;
 int dhtPin = 25;
+const long ENV_UPDATE_INTERVAL = 20000;
 
-String getSSID() {
+String getValue(const char* key) {
   preferences.begin("app", false);
-  String ssid = preferences.getString("SSID", "default");
-  if(ssid == "default") {
-    Serial.println("Please set to WiFi SSID: ");
+  String ssid = preferences.getString(key, "default");
+  long startTime = millis();
+
+  {
+    char buffer[100];
+    sprintf(buffer, "Please set to %s :", key);
+    Serial.println(buffer);
  
-    String input = Serial.readString();
-    while(input.length() == 0) {
-      input = Serial.readStringUntil('\n');
+    while((millis() - startTime) < ENV_UPDATE_INTERVAL) {
+      if (Serial.available() > 0) {
+        String input = Serial.readStringUntil('\n');
+
+	if (input.length() > 0) {
+	  ssid = input;
+	  preferences.putString(key, input);
+          return ssid; 
+	}
+      }
+      delay(10);
     }
-    ssid = input;
-    preferences.putString("SSID", input);
   }
+
   preferences.end();
- 
   return ssid;
-}
-
-String getPASS() {
-  preferences.begin("app", false);
-  String pass = preferences.getString("PASS", "default");
-  if(pass == "default") {
-    Serial.println("Please set to WiFi Password: ");
- 
-    String input = Serial.readString();
-    while(input.length() == 0) {
-      input = Serial.readStringUntil('\n');
-    }
-    pass = input;
-    preferences.putString("PASS", input);
-  }
-  preferences.end();
- 
-  return pass;
 }
 
 boolean connectWiFi(char * ssid, char * pass) {
@@ -84,6 +77,7 @@ boolean connectWiFi(char * ssid, char * pass) {
   WiFi.begin(ssid, pass);
   Serial.print("WiFi connecting [");
   Serial.print(ssid);
+  Serial.print(pass);
   Serial.print("]");
 
   while(WiFi.status() != WL_CONNECTED) {
@@ -104,11 +98,11 @@ void setup() {
 
   dht.setup(dhtPin, DHTesp::AM2302);
 
-  String ssid = getSSID();
+  String ssid = getValue("SSID");
   int slen = ssid.length();
   char cnv_ssid[slen];
   ssid.toCharArray(cnv_ssid, slen + 1);
-  String pass = getPASS();
+  String pass = getValue("PASS");
   int plen = pass.length();
   char cnv_pass[plen];
   pass.toCharArray(cnv_pass, plen + 1);
