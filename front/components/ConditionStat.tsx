@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import type { FC } from "react";
 import { Flex, Icon, Text, Skeleton } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaTemperatureHigh } from "react-icons/fa";
@@ -19,7 +19,7 @@ type Props = {
   revalidating: boolean;
 };
 
-export const ConditionStat: React.FC<Props> = (props: Props) => {
+export const ConditionStat: FC<Props> = (props: Props) => {
   return (
     <Flex
       flexDir="column"
@@ -41,7 +41,7 @@ export const ConditionStat: React.FC<Props> = (props: Props) => {
             {props.condition
               ? format(
                   getTokyoDate(new Date(props.condition?.created_at)),
-                  "yyyy/MM/dd HH:mm:ss"
+                  "yyyy/MM/dd HH:mm:ss",
                 )
               : null}
           </Text>

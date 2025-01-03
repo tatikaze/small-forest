@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import Head from "next/head";
 import { Box, Flex } from "@chakra-ui/react";
 
@@ -6,8 +7,8 @@ import { useDeviceCondition } from "~/hooks/device_condition";
 import { Title } from "~/components/Title";
 import { ConditionGraph } from "~/components/ConditionGraph";
 
-const ConditionDetailPage: React.FC = () => {
-  const { conditions, loading, error } = useDeviceCondition();
+const ConditionDetailPage: FC = () => {
+  const { conditions, loading } = useDeviceCondition();
   return (
     <Flex flexDir="column" alignItems="center">
       <Head>
