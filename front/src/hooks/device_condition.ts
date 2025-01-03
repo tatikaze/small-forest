@@ -54,6 +54,10 @@ export const useDeviceCondition = (): UseDeviceCondition => {
         start_date: start.str,
         end_date: end.str,
       },
+      refreshInterval: 1000 * 60 * 5,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateIfStale: false,
     },
   );
 
