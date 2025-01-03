@@ -21,7 +21,7 @@ export const createCondition = async (
   device_name: string,
   scaned_at: Date,
   temperature: number,
-  humidity: number
+  humidity: number,
 ) => {
   const condition: Condition = {
     created_unix: scaned_at.getTime(),
@@ -50,7 +50,7 @@ type DateRange = {
 
 export const findConditionByNameAndDateRange = async (
   device_name: string,
-  date_range: DateRange
+  date_range: DateRange,
 ): Promise<Condition[]> => {
   const params: QueryCommandInput = {
     TableName: table_name,
@@ -63,17 +63,13 @@ export const findConditionByNameAndDateRange = async (
       "device_name = :dn and created_unix between :s and :e",
   };
 
-  try {
-    const data: QueryCommandOutput = await ddbClient.send(
-      new QueryCommand(params)
-    );
-    return data.Items as Condition[];
-  } catch (e) {
-    throw e;
-  }
+  const data: QueryCommandOutput = await ddbClient.send(
+    new QueryCommand(params),
+  );
+  return data.Items as Condition[];
 };
 export const findNowConditionByName = async (
-  device_name: string
+  device_name: string,
 ): Promise<Condition | null> => {
   const params: QueryCommandInput = {
     TableName: table_name,
@@ -87,7 +83,7 @@ export const findNowConditionByName = async (
 
   try {
     const data: QueryCommandOutput = await ddbClient.send(
-      new QueryCommand(params)
+      new QueryCommand(params),
     );
     if (data.Items === undefined) return null;
     return (data.Items[0] as Condition) ?? null;

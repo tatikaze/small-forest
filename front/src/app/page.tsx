@@ -1,6 +1,7 @@
+"use client";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Container, Flex, Box, VStack } from "@chakra-ui/react";
+import { Container, Flex, VStack } from "@chakra-ui/react";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 import { useDeviceCondition } from "~/hooks/device_condition";
