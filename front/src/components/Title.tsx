@@ -1,3 +1,4 @@
+"use client";
 import { chakra, Icon, Flex, useBoolean } from "@chakra-ui/react";
 import { BsMoonStars } from "react-icons/bs";
 import { motion } from "framer-motion";

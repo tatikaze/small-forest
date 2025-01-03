@@ -1,3 +1,4 @@
+'use client'
 import type { FC } from "react";
 import { Flex, Icon, Text, Skeleton } from "@chakra-ui/react";
 import Link from "next/link";

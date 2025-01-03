@@ -1,3 +1,4 @@
+"use client";
 import type { FC } from "react";
 import Head from "next/head";
 import { Box, Flex } from "@chakra-ui/react";
