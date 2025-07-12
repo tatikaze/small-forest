@@ -17,6 +17,7 @@
     "@chakra-ui/react": "^2.10.4",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "aspida": "^1.14.0",
     "aws-sdk": "^2.1048.0",
     "axios": "^0.24.0",
     "chart.js": "^3.7.0",

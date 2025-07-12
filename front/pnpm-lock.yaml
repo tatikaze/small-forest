@@ -29,6 +29,9 @@ importers:
       '@emotion/styled':
         specifier: ^11
         version: 11.14.1(@emotion/react@11.14.0(@types/react@18.3.23)(react@19.1.0))(@types/react@18.3.23)(react@19.1.0)
+      aspida:
+        specifier: ^1.14.0
+        version: 1.14.0
       aws-sdk:
         specifier: ^2.1048.0
         version: 2.1692.0
