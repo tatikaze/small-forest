@@ -60,7 +60,7 @@ export class HelloEcsStack extends cdk.Stack {
         },
         {
           name: "isolated",
-          subnetType: ec2.SubnetType.ISOLATED,
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
         },
       ],
     });
