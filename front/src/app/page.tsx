@@ -40,7 +40,7 @@ const Home: NextPage = () => {
           alignItems="center"
           w="full"
           px={2}
-          spacing={4}
+          gap={4}
           maxW={{ base: "full", md: "xs" }}
         >
           <ConditionStat
@@ -55,9 +55,9 @@ const Home: NextPage = () => {
               shadow="xs"
               w="full"
               h="full"
-              sx={{
-                ">div": {
-                  w: "full",
+              css={{
+                "& > div": {
+                  width: "100%",
                   overflowY: "auto",
                 },
               }}

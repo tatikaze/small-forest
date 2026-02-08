@@ -1,18 +1,19 @@
 "use client";
-import { chakra, Icon, Flex, useBoolean } from "@chakra-ui/react";
+import { useState } from "react";
+import { chakra, Icon, Flex } from "@chakra-ui/react";
 import { BsMoonStars } from "react-icons/bs";
 import { motion } from "framer-motion";
 
 export const Title = () => {
-  const [hover, setHover] = useBoolean(true);
+  const [hover, setHover] = useState(true);
 
   return (
     <chakra.h1 color="gray.700" fontWeight="semibold" fontSize="4xl">
       <motion.div
         onHoverStart={() => {
-          setHover.on();
+          setHover(true);
         }}
-        onHoverEnd={() => setHover.off()}
+        onHoverEnd={() => setHover(false)}
       >
         <Flex flexDir="row" alignItems="center" justifyContent="center" px={4}>
           <motion.div
@@ -26,13 +27,13 @@ export const Title = () => {
           <Flex px={2}>
             <motion.div
               onHoverStart={() => {
-                setHover.on();
+                setHover(true);
               }}
-              onHoverEnd={() => setHover.off()}
+              onHoverEnd={() => setHover(false)}
             >
               Welcome to{" "}
               <chakra.a
-                textColor="#FF751D"
+                color="#FF751D"
                 href="https://www.youtube.com/channel/UCzUNASdzI4PV5SlqtYwAkKQ"
               >
                 Smafore

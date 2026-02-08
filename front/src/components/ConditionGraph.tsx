@@ -81,7 +81,7 @@ export const ConditionGraph: React.FC<Props> = (props: Props) => {
       <Flex flexDir="column" alignItems="center" >
         <Flex flexDir="row" alignItems="center" p={8}>
           <Icon h={6} w={6} as={FaGhost} mx={2} />
-          <Text textColor="gray.700" textAlign="center">
+          <Text color="gray.700" textAlign="center">
             直近のデータが存在しません
           </Text>
         </Flex>
