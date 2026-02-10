@@ -32,7 +32,7 @@ export const ConditionStat: FC<Props> = (props: Props) => {
       w="full"
       gap={2}
     >
-      <Flex flexDir="row" alignItems="center" mb={2} textColor="gray.500">
+      <Flex flexDir="row" alignItems="center" mb={2} color="gray.500">
         {props.loading ? (
           <Skeleton>
             <Text fontSize="sm">yyyy/MM/dd HH:mm:ss</Text>
@@ -62,7 +62,7 @@ export const ConditionStat: FC<Props> = (props: Props) => {
             <Icon
               as={AiOutlineReload}
               onClick={() => props.mutate()}
-              textColor="gray.700"
+              color="gray.700"
               h={4}
               w={4}
             />

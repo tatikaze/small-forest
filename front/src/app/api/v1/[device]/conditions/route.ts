@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { z } from "zod";
-import { zonedTimeToUtc } from "date-fns-tz";
+import { fromZonedTime } from "date-fns-tz";
 
 import {
   findConditionByNameAndDateRange,
@@ -43,8 +43,8 @@ export async function GET(
 
   try {
     const conditions = await findConditionByNameAndDateRange(device as string, {
-      start_date: zonedTimeToUtc(start_date as string, "Asia/Tokyo"),
-      end_date: zonedTimeToUtc(end_date as string, "Asia/Tokyo"),
+      start_date: fromZonedTime(start_date as string, "Asia/Tokyo"),
+      end_date: fromZonedTime(end_date as string, "Asia/Tokyo"),
     });
     const now = await findNowConditionByName(device);
     return NextResponse.json({ conditions: conditions, now: now });
