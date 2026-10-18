@@ -5,15 +5,11 @@ import {
   QueryCommandInput,
   QueryCommandOutput,
 } from "@aws-sdk/lib-dynamodb";
-import { ddbClient } from "~/lib/dynamodb";
+import { ddbDocClient } from "~/lib/dynamodb";
+import type { Condition } from "~/types";
 
-type Condition = {
-  created_unix: number;
-  device_name: string;
-  temperature: number;
-  humidity: number;
-  created_at: string;
-};
+export class HistoryLimitError extends Error {}
+export type ReadBudget = { pages: number; items: number; deadline: number };
 
 const table_name = "conditions";
 
@@ -35,7 +31,7 @@ export const createCondition = async (
     Item: condition,
   };
   try {
-    return await ddbClient.send(new PutCommand(params));
+    return await ddbDocClient.send(new PutCommand(params));
   } catch (e) {
     // FIXME: handle
     console.log(e);
@@ -51,6 +47,7 @@ type DateRange = {
 export const findConditionByNameAndDateRange = async (
   device_name: string,
   date_range: DateRange,
+  budget: ReadBudget = { pages: 40, items: 10_000, deadline: Date.now() + 30_000 },
 ): Promise<Condition[]> => {
   const params: QueryCommandInput = {
     TableName: table_name,
@@ -63,10 +60,21 @@ export const findConditionByNameAndDateRange = async (
       "device_name = :dn and created_unix between :s and :e",
   };
 
-  const data: QueryCommandOutput = await ddbClient.send(
-    new QueryCommand(params),
-  );
-  return data.Items as Condition[];
+  const items: Condition[] = [];
+  do {
+    if (budget.pages <= 0 || budget.items <= 0 || items.length >= 2000) throw new HistoryLimitError();
+    const remaining = budget.deadline - Date.now();
+    if (remaining <= 0) throw new HistoryLimitError();
+    const data: QueryCommandOutput = await ddbDocClient.send(
+      new QueryCommand({ ...params, Limit: Math.min(500, budget.items, 2000 - items.length) }),
+      { abortSignal: AbortSignal.timeout(Math.min(8000, remaining)) },
+    );
+    budget.pages--;
+    budget.items -= data.ScannedCount ?? data.Items?.length ?? 0;
+    items.push(...(data.Items ?? []) as Condition[]);
+    params.ExclusiveStartKey = data.LastEvaluatedKey;
+  } while (params.ExclusiveStartKey);
+  return items;
 };
 export const findNowConditionByName = async (
   device_name: string,
@@ -81,15 +89,9 @@ export const findNowConditionByName = async (
     Limit: 1,
   };
 
-  try {
-    const data: QueryCommandOutput = await ddbClient.send(
-      new QueryCommand(params),
-    );
-    if (data.Items === undefined) return null;
-    return (data.Items[0] as Condition) ?? null;
-  } catch (e) {
-    console.log(e);
-    // FIXME: handle
-    return null;
-  }
+  const data: QueryCommandOutput = await ddbDocClient.send(
+    new QueryCommand(params),
+    { abortSignal: AbortSignal.timeout(8000) },
+  );
+  return (data.Items?.[0] as Condition) ?? null;
 };

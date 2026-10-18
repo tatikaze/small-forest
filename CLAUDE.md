@@ -1,97 +1,60 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルはリポジトリで作業する際の構成と開発手順を説明します。
 
 ## プロジェクト概要
 
-IoTデバイス(Arduino/ESP32)から環境データを収集し、Next.jsフロントエンドで可視化するシステム。AWS ECS上で動作。
+ESP32の温湿度センサーからデータを収集し、Next.jsで可視化するサービスです。
+本番のWebアプリとAPIはVercelで稼働しています。
 
 ## アーキテクチャ
 
-- **front/**: Next.js 15 + Chakra UI フロントエンド
-  - App Router構造を使用
-  - API Routes (`/api/v1/*`) で DynamoDB とやり取り
-  - Aspida による型安全なAPIクライアント生成
-  - pnpm パッケージマネージャー使用 (Volta で管理)
-
-- **cdk-deploy/**: AWS CDK v2 インフラストラクチャコード
-  - ECS Fargate + ALB + Route53 + ACM による本番環境デプロイ
-  - VPC endpoints経由でプライベートサブネット内のECSからECR/CloudWatchアクセス
-  - DynamoDBアクセス権限をタスクロールに付与
-
-- **manaru/**: 旧AWS CDKスタック（現在は使用していない可能性あり）
-
-- **saturn/**: Arduino/ESP32 ファームウェア
-  - 温湿度センサー(DHT)からデータ収集
-  - HTTPSでフロントエンドのAPIエンドポイントへPOST
+- **front/**: Next.js 16 / React 19 / Chakra UI 3
+  - App Router、API Routes (`/api/v1/*`)、SWR、Chart.jsを使用
+  - DynamoDBに温湿度を保存し、日単位のキャッシュを使って履歴を取得
+  - Upstash Redis設定時はインスタンス間でキャッシュを共有
+  - Aspidaで型付きAPIクライアントを生成
+  - Vercelプロジェクト: `astify/small-forest`、Root Directory: `front`、Node.js: 22.x
+  - 本番URL: https://smafore.hurin.work
+- **saturn/**: ESP32ファームウェア。約5分間隔で温湿度を送信
+- **manaru/**: 週次レポート用のLambda / S3 / EventBridgeのCDKコード
+  - Webアプリとは独立した構成。稼働状況は未確認
 
 ## 開発コマンド
 
-### フロントエンド (front/)
+### フロントエンド (`front/`)
+
 ```bash
-pnpm dev              # 開発サーバー起動 (Turbopack使用)
-pnpm build            # プロダクションビルド
-pnpm start            # プロダクションサーバー起動
-pnpm lint             # ESLint実行
-pnpm api:build        # Aspida型定義生成
+pnpm install --frozen-lockfile
+pnpm dev
+pnpm api:build
+pnpm test
+pnpm lint
+pnpm exec tsc --noEmit
+pnpm build
 ```
 
-### CDK (cdk-deploy/)
+API型定義を変更した場合は`pnpm api:build`で`src/api/$api.ts`を再生成してください。
+詳細な期間指定仕様、キャッシュTTL、読み取り上限は`front/README.md`を参照してください。
+
+### Arduino / ESP32 (`saturn/`)
+
 ```bash
-npm run build         # TypeScriptコンパイル
-npm run watch         # Watch mode
-npm test              # Jestテスト実行
-npx cdk deploy        # AWSへデプロイ
-npx cdk diff          # 変更差分確認
-npx cdk synth         # CloudFormationテンプレート生成
+./compile.sh
+./upload.sh
 ```
-
-### Arduino (saturn/)
-```bash
-./compile.sh          # ファームウェアコンパイル
-./upload.sh           # デバイスへアップロード
-```
-
-## Docker/ECS デプロイフロー
-
-1. ECRログイン:
-   ```bash
-   aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 392453725290.dkr.ecr.ap-northeast-1.amazonaws.com
-   ```
-   必要に応じて`--profile`オプションでプロファイル指定
-
-2. イメージビルド&プッシュ:
-   ```bash
-   docker compose -f docker-compose-build.yml build
-   docker compose push
-   ```
-   **注意**: M1/M2 Macでビルドするとアーキテクチャの違いでECS実行時にエラーが発生する可能性あり
-
-3. ECSへデプロイ (オプション):
-   ```bash
-   docker context create ecs {context-name}
-   docker context use {context-name}
-   docker compose up
-   ```
-
-## 重要な技術スタック
-
-- **フロントエンド**: Next.js 15 (App Router), React 19, Chakra UI v2, Aspida, SWR, Chart.js, DynamoDB SDK
-- **インフラ**: AWS CDK v2, ECS Fargate, ALB, Route53, ACM, VPC, DynamoDB
-- **IoT**: ESP32, DHT温湿度センサー, WiFi, HTTPS通信
-- **パッケージマネージャー**: pnpm (front), npm/yarn (cdk-deploy, manaru)
-- **Node.js**: v22.12.0 (Voltaで管理)
 
 ## データフロー
 
-1. ESP32 (saturn/) が温湿度データを測定
-2. HTTPSで `POST /api/v1/conditions` へデータ送信
-3. Next.js API Routes が DynamoDB へ保存
-4. フロントエンドが SWR で定期的にデータ取得
-5. Chart.js でグラフ表示
+1. ESP32が温湿度を測定
+2. `POST /api/v1/conditions`でVercelのAPIへ送信
+3. APIがDynamoDBへ保存
+4. SWRが履歴APIを取得し、Chart.jsで表示
 
-## 注意点
+## 環境変数とデプロイ
 
-- Aspida使用時はAPI型定義変更後に`pnpm api:build`を実行して型を再生成
-- CDKデプロイ時は`cdk.json`のコンテキスト変数 (`zone_name`, `hosted_zone_id`, `domain_name`, `application_image_name`) を適切に設定
-- ECSタスクはプライベートサブネット内で実行され、VPCエンドポイント経由で外部サービスにアクセス
+- DynamoDB: `AWS_ACCESS_APP_KEY`、`AWS_SECRET_APP_KEY`。リージョンは`ap-northeast-1`
+- Upstash（任意）: `UPSTASH_REDIS_REST_URL`、`UPSTASH_REDIS_REST_TOKEN`
+- ローカルは`front/.env.local`、本番はVercelの対象環境に設定
+- 認証情報をコミットしたり、`NEXT_PUBLIC_`でブラウザーへ公開しないこと
+- Vercelではプロセス内キャッシュの永続性・インスタンス間共有を前提にしないこと

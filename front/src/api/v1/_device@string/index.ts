@@ -1,12 +1,12 @@
-import type { Condition } from "~/types";
+import type { ConditionHistoryResponse } from "~/types";
 
 export type Methods = {
   get: {
     query: {
       start_date: string;
       end_date: string;
-      device: string;
+      include_now?: boolean;
     };
-    resBody: { conditions: Condition[]; now: Condition };
+    resBody: ConditionHistoryResponse;
   };
 };
