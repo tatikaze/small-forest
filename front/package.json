@@ -6,8 +6,9 @@
     "dev:next": "next .",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "api:build": "aspida"
+    "lint": "eslint src",
+    "api:build": "aspida",
+    "test": "node --test tests/*.test.cjs"
   },
   "dependencies": {
     "@aspida/axios": "^1.14.0",

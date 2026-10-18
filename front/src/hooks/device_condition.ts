@@ -1,76 +1,41 @@
 "use client";
-import { useMemo } from "react";
-import useAspidaSWR from "@aspida/swr";
+import useSWR from "swr";
 import { apiClient } from "~/lib/apiClient";
 
-import type { Condition } from "~/types";
-import { getRequestDateStr } from "~/lib/format";
+export type ConditionPeriod = { hours: number } | { start: string; end: string };
 
-type UseDeviceCondition = {
-  conditions: Condition[] | undefined;
-  now: Condition | undefined;
-  loading: boolean;
-  error: any;
-  mutate: () => void;
-  revalidating: boolean;
-};
-
-const useDateRange = () => {
-  const startDate = useMemo(() => {
-    const date = new Date();
-    date.setHours(date.getHours() - 2);
-    return date;
-  }, []);
-  const endDate = useMemo(() => {
-    return new Date();
-  }, []);
-
-  const start_date_str = useMemo(
-    () => getRequestDateStr(startDate),
-    [startDate],
-  );
-  const endDateStr = useMemo(() => getRequestDateStr(endDate), [endDate]);
-
-  return {
-    start: {
-      date: startDate,
-      str: start_date_str,
+export const useDeviceCondition = (period: ConditionPeriod = { hours: 2 }, includeNow = true) => {
+  const relative = "hours" in period;
+  const start = relative ? period.hours : period.start;
+  const end = relative ? null : period.end;
+  const { data, error, mutate, isValidating, isLoading } = useSWR(
+    ["conditions", "reid", start, end, includeNow],
+    async () => {
+      // Recompute on every poll/manual refresh so the live window actually advances.
+      const now = Math.floor(Date.now() / 60_000) * 60_000;
+      return apiClient.v1._device("reid").conditions.$get({
+        query: {
+          start_date: relative ? new Date(now - period.hours * 3_600_000).toISOString() : period.start,
+          end_date: relative ? new Date(now).toISOString() : period.end,
+          include_now: includeNow,
+        },
+      });
     },
-    end: {
-      date: endDate,
-      str: endDateStr,
-    },
-  };
-};
-
-export const useDeviceCondition = (): UseDeviceCondition => {
-  const { start, end } = useDateRange();
-  const DEFAULT_DEVICE_ID = "reid";
-
-  const { data, error, mutate, isValidating } = useAspidaSWR(
-    apiClient.v1._device(DEFAULT_DEVICE_ID).conditions,
     {
-      query: {
-        start_date: start.str,
-        end_date: end.str,
-      },
-      refreshInterval: 1000 * 60 * 5,
+      refreshInterval: relative ? 300_000 : 0,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      revalidateIfStale: false,
+      dedupingInterval: 30_000,
+      shouldRetryOnError: false,
     },
   );
-
-  const revalidating: boolean = useMemo(() => {
-    return !(!data && !error) && isValidating;
-  }, [data, isValidating, error]);
-
   return {
-    conditions: data?.conditions ?? undefined,
+    conditions: data?.conditions,
     now: data?.now ?? undefined,
-    loading: !data && !error,
+    range: data?.range,
+    loading: isLoading,
     error,
     mutate,
-    revalidating,
+    revalidating: !isLoading && isValidating,
   };
 };
