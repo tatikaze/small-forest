@@ -10,6 +10,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  type ChartOptions,
   type TooltipItem,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
@@ -36,7 +37,7 @@ export const ConditionGraph: React.FC<Props> = (props: Props) => {
   const temperatures = props.conditions?.map(condition => ({ x: condition.created_unix, y: condition.temperature })) ?? [];
   const humidities = props.conditions?.map(condition => ({ x: condition.created_unix, y: condition.humidity })) ?? [];
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -62,22 +63,43 @@ export const ConditionGraph: React.FC<Props> = (props: Props) => {
           callback: (value: string | number) => formatInTimeZone(Number(value), "Asia/Tokyo", "MM/dd HH:mm"),
         },
       },
+      temperature: {
+        type: "linear",
+        axis: "y",
+        position: "left",
+        beginAtZero: false,
+        grace: "10%",
+        title: { display: true, text: "温度（℃）", color: "rgb(53, 162, 235)" },
+        ticks: { color: "rgb(53, 162, 235)", precision: 1, maxTicksLimit: 7 },
+      },
+      humidity: {
+        type: "linear",
+        axis: "y",
+        position: "right",
+        beginAtZero: false,
+        grace: "10%",
+        title: { display: true, text: "湿度（%）", color: "rgb(255, 99, 132)" },
+        ticks: { color: "rgb(255, 99, 132)", precision: 1, maxTicksLimit: 7 },
+        grid: { drawOnChartArea: false },
+      },
     },
   };
 
   const data = {
     datasets: [
       {
-        label: "湿度（%）",
-        data: humidities,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
         label: "温度（℃）",
         data: temperatures,
+        yAxisID: "temperature",
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+      {
+        label: "湿度（%）",
+        data: humidities,
+        yAxisID: "humidity",
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
